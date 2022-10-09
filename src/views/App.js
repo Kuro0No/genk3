@@ -13,9 +13,17 @@ import i18next from "../translations/i18next";
 import styled from "styled-components";
 import { DrawerLeft } from "../components";
 import { LAYOUT } from "../constants/common";
+import TopDirections from "components/common/topDirection";
+import TabsControlContent from "components/common/TabsControlContent";
+import CustomerService from '../services/newsService'
+import TopNews from "components/TopNews";
+import BellowRemarkNews from "components/BellowRemarkNews";
+
+
 const AboutView = lazy(() => import("../views/About/AboutView"));
 const HomeView = lazy(() => import("../views/Home/HomeView"));
 const NotFoundView = lazy(() => import("../views/NotFound/NotFoundView"));
+
 const AppWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -71,6 +79,7 @@ class App extends React.PureComponent {
       }
     );
   }
+  
 
   render() {
     const { isLoggedIn} = this.props.loginState;
@@ -81,8 +90,16 @@ class App extends React.PureComponent {
         <div>
           <Loading loading={this.props.loading}/>
           <Layout layout={layout} props={{logout:logout}}>
-            {!isLoggedIn && <Header />}
-            <Switch>
+            {/* {!isLoggedIn && <Header />} */}
+            <TopDirections/>
+            <Header/>
+            <div className="px-3">
+              <TopNews />
+              <TabsControlContent />
+              <BellowRemarkNews />
+            </div>
+          
+            {/* <Switch>
               <Route exact path="/" component={HomeView}/>
               <Route path={pathKeys.ABOUT} component={AboutView}/>
               <Route path={pathKeys.LOGIN} component={LoginPage}/>
@@ -92,7 +109,7 @@ class App extends React.PureComponent {
                 isAuthenticated={isLoggedIn}
               />
               <Route component={NotFoundView}/>i
-            </Switch>
+            </Switch> */}
           </Layout>
         </div>
       </I18nextProvider>
